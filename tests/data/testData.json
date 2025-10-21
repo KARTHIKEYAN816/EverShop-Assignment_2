@@ -1,0 +1,38 @@
+{
+  "user": {
+    "name": "Test User",
+    "email": "testuser@example.com",
+    "password": "123456"
+  },
+  "admin": {
+    "email": "admin@admin.com",
+    "password": "ApjKalam425"
+  },
+
+"product":{
+  "Name":"Regular shirt",
+  "SKU" :"15159",
+  "Price":"20",
+  "Weight":"1",
+  "Quantity": "30",
+  "Color": ["White", "Black", "Yellow"],
+  "Size":["XXL","XL","SM"],
+  "urlKeyInput": "shirt",
+  "metaTitleInput": "newShirt",
+  "metaKeywordsInput": "Shirt",
+  "metaDescriptionInput":"Mens shirt"
+},
+
+"Coupon":{
+  "Code":"FEST2025",
+  "Description":"This Coupon is can be used during 2025 Festival Seasons.Check the Coupon Start date & End date for the validity of this Coupon.",
+  "DiscountAmount":"250",
+  "MinimumPurchaseAmount" :"100",
+  "MinimumPurchaseQty":"1",
+  "MinimumQuantity":"1",
+  "CustomerEmail":"TestEmail123@gmail.com",
+  "CustomerPurchase":"100"
+}
+
+}
+ 
