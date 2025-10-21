@@ -65,13 +65,13 @@ async DeleteProduct():Promise<void>{
   await deleteButton.click();
   await this.locator(applocators.Products.DeletePopup.Delete).click();
 }
-  //Taking created Product Image
+  //Taking Updated Product Image
   async UpdatedproductImage(ProductName:string): Promise<string> {
     await this.navigateToProducts();
     const image = await helper.capturingProductImage(this.page, ProductName);
     return image || '';
   }
-  //Verifying product is not  displaying in Products dashboard
+  //Verifying product is not displaying in Products dashboard
   async isProductNotDisplaying(productName: string):Promise<void>{
   await expect(this.page.getByRole("link", { name: productName, exact: true })).not.toBeVisible();
   // await expect(this.page.getByRole("link", { name: productName, exact: true })).not.toBeAttached();
@@ -91,7 +91,7 @@ async DeleteProduct():Promise<void>{
     };
   }
 
-  // Creating product with unique data
+  // Updating product with unique data
     async UpdatingProduct(): Promise<ProductData> {
     const product = this.generateUniqueProduct();
     await this.updateBasicInfo(product.Name, product.SKU, product.Price, product.Weight);
