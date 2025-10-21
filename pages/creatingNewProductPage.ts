@@ -3,6 +3,7 @@ import { BasePage } from "./basePage";
 import { applocators } from "../tests/locators/subscription.locator";
 import testData from "../tests/data/testData.json";
 import { ENV } from "../utils/env";
+import { DashBoardPage } from "./dashBoardPage";
 import * as helper from "../utils/helper";
 
 interface ProductData {
@@ -16,7 +17,7 @@ interface ProductData {
   metaKeywordsInput: string;
   metaDescriptionInput: string;
 }
-
+let dashboardpage: DashBoardPage;
 export class creatingNewProductPage extends BasePage {
   constructor(page: Page) {
     super(page);
@@ -31,7 +32,7 @@ export class creatingNewProductPage extends BasePage {
       SKU: `${testData.product.SKU}_${timestamp}`,
       urlKeyInput: `shirt${timestamp}`,
       metaTitleInput: `newShirt${timestamp}`,
-      metaKeywordsInput: `YellowShirt${timestamp}`,
+      metaKeywordsInput: `Shirt${timestamp}`,
       metaDescriptionInput: `Mens shirt${timestamp}`,
     };
   }
@@ -95,8 +96,21 @@ export class creatingNewProductPage extends BasePage {
   }
 
   // Verify product was saved successfully
-  async verifyProductSaved(productName: string): Promise<void> {
+  async verifyProductSaved(): Promise<void> {
     await expect(this.page.getByText("Product saved successfully!")).toBeVisible();
+  }
+
+  //Verifying whether created product is displaying in Products dashboard
+  async isCreatedProductdisplayed(productName: string):Promise<void>{
+  dashboardpage = new DashBoardPage(this.page);
+  dashboardpage.navigatingToProductList();
+  await expect(this.page.getByRole("link", { name: productName, exact: true })).toBeVisible();
+  }
+
+  //Taking created Product Image
+  async initialProductImage(ProductName:string): Promise<string> {
+    const image = await helper.capturingProductImage(this.page, ProductName);
+    return image || '';
   }
 
   // Creating product with custom data
@@ -119,7 +133,6 @@ export class creatingNewProductPage extends BasePage {
   // Creating product with unique data
   async addingNewProduct(): Promise<ProductData> {
     const product = this.generateUniqueProduct();
-    
     await this.navigateToNewProduct();
     await this.fillBasicInfo(product.Name, product.SKU, product.Price, product.Weight);
     await this.selectCategory();
@@ -128,7 +141,6 @@ export class creatingNewProductPage extends BasePage {
     await this.uploadImages();
     await this.fillSEO(product.urlKeyInput, product.metaTitleInput, product.metaKeywordsInput, product.metaDescriptionInput);
     await this.save();
-    
     return product;
   }
 

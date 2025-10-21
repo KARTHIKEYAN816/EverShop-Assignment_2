@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { creatingNewProductPage } from '../pages/creatingNewProductPage';
-import { BasePage } from '../pages/basePage';
 import { DatabasePage } from '../utils/dbconnection';
 import { ProductEditPage } from '../pages/productEditPage';
 
-let basePage: BasePage;
 let productPage: creatingNewProductPage;
 let loginPage: LoginPage;
 let editProductdetails: ProductEditPage;
 let createdProductName: string = '';
-let updatedProductName: string = 'Mens Blue Shirt';
+let updatedProductName: string = '';
+let InitialProductImage: string='';
+let UpdatedProductImage: string='';
 
 test.describe('NewProduct', () => {
   test.describe.configure({ mode: 'serial' });
@@ -27,17 +27,43 @@ test.describe('NewProduct', () => {
     const productData = await productPage.addingNewProduct();
     createdProductName = productData.Name;
     console.log('Created Product Name:', createdProductName);
+    //Verifying Product Save Toaster
+    await productPage.verifyProductSaved();
+    //Verifying Product is displayed in Products List
+    await productPage.isCreatedProductdisplayed(createdProductName);
+    //Taking initial Product Image
+   InitialProductImage = await productPage.initialProductImage(createdProductName);
   });
 
   test('TC 02 & 03: Updating Product details', async ({ page }) => {
     await performLogin(page);
     editProductdetails = new ProductEditPage(page);
+    
+    //navigating to Products DashBoard
     await editProductdetails.navigateToProducts();
+    
+    //Selecting created Product
     await editProductdetails.selectingProduct(createdProductName);
-    await editProductdetails.updateProductName(updatedProductName);
-    await editProductdetails.updateProductPrice('20');
+    
+    //Editing Product details
+    const updatedData = await editProductdetails.UpdatingProduct();
+    updatedProductName=updatedData.Name;
+    
+    //Updating Image
     await editProductdetails.UpdateImages();
+    
+  //Saving the Updated details
     await editProductdetails.SaveUpdatedDetail();
+   console.log('Updated Product Name:', updatedProductName);
+   
+    //Taking Updated Product Image
+  UpdatedProductImage = await editProductdetails.UpdatedproductImage(updatedProductName);
+
+   //Checking whether Image is updated
+  expect(UpdatedProductImage).not.toBe(InitialProductImage);
+
+  //checking the Initial Product is not displaying after Updation
+  await editProductdetails.isProductNotDisplaying(createdProductName);
   });
 
   test('TC 04: Verify Product Details in Database', async () => {

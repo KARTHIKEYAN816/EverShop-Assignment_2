@@ -22,6 +22,19 @@
   "metaKeywordsInput": "Shirt",
   "metaDescriptionInput":"Mens shirt"
 },
+"Updatedproduct":{
+  "Name":"Updated shirt",
+  "SKU" :"3256",
+  "Price":"25",
+  "Weight":"2",
+  "Quantity": "40",
+  "Color": ["White", "Black", "Yellow"],
+  "Size":["XXL","XL","SM"],
+  "urlKeyInput": "Updated shirt",
+  "metaTitleInput": "Updated Shirt",
+  "metaKeywordsInput": "Updated Shirt",
+  "metaDescriptionInput":"Updated Mens shirt"
+},
 
 "Coupon":{
   "Code":"FEST2025",

@@ -143,6 +143,24 @@ export async function selectingProductFromList(page:Page,ProductName:string){
     }
 } 
 
+export async function capturingProductImage(page:Page,ProductName:string,ProductImage?:string){
+  const rows = page.locator('.listing.sticky tbody tr:visible');
+    const rowCount = await rows.count();
+    for (let i = 0; i < rowCount; i++) {
+        const columns = rows.nth(i).locator('td:visible');
+        const columnCount=await columns.count();
+        for(let j=0; j<columnCount;j++){
+            const cellvalue=await columns.nth(j).textContent();
+        if(cellvalue?.includes(ProductName)){
+            const imageBuffer = await columns.nth(1).screenshot();
+            ProductImage = imageBuffer.toString('base64');
+            break;
+        }
+        }
+    }
+    return ProductImage;
+} 
+
 export async function selectingProductCheckbox(page:Page,ProductName:string){
   const rows = page.locator('.listing.sticky tbody tr:visible');
     const rowCount = await rows.count();
@@ -176,5 +194,9 @@ export async function UpdatingProductImage(page: Page, imageLocator?: Locator, i
     const files = Array.isArray(imagePaths) ? imagePaths : [imagePaths];
     await selectImage(imageLocator, files);
   }
+}
+export async function ProductImageScreenshot(page: Page) {
+  const image = await page.locator('img[src="/assets/catalog/7569/8789/yellow-shirt.webp"]').screenshot();
+  return image;
 }
 
