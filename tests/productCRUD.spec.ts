@@ -91,7 +91,7 @@ test.describe('NewProduct', () => {
 
 // Additional DB validation tests
 test.describe('Additional Database Validation Tests', () => {
-  test('TC 05: Verify Product Count in Database', async () => {
+  test('TC 06: Verify Product Count in Database', async () => {
     const databasePage = new DatabasePage();
     try {
       await databasePage.connect();
@@ -101,7 +101,7 @@ test.describe('Additional Database Validation Tests', () => {
     }
   });
 
-  test('TC 06: Verify All Products List', async () => {
+  test('TC 07: Verify All Products List', async () => {
     const databasePage = new DatabasePage();
     try {
       await databasePage.connect();
