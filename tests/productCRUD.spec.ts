@@ -76,6 +76,17 @@ test.describe('NewProduct', () => {
     }
   });
 
+    test('TC 05: Deleting Updated Product', async ({ page }) => {
+    await performLogin(page);
+    editProductdetails = new ProductEditPage(page);
+    //navigating to Products Dashboard
+    await editProductdetails.navigateToProducts();
+    //Selecting Product Checkbox
+    await editProductdetails.SelectingUpdatedProductCheckbox(updatedProductName);
+    //Deleting updated Product
+    await editProductdetails.DeleteProduct();
+  });
+
 });
 
 // Additional DB validation tests

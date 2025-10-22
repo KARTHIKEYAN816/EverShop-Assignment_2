@@ -160,6 +160,9 @@ export async function capturingProductImage(page:Page,ProductName:string,Product
     }
     return ProductImage;
 } 
+ export async function selectingSingleProductCheckbox(page:Page,ProductName:string){
+  await page.getByRole('row', { name: ProductName }).locator('span').first().click();
+ }
 
 export async function selectingProductCheckbox(page:Page,ProductName:string){
   const rows = page.locator('.listing.sticky tbody tr:visible');

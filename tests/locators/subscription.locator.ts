@@ -87,8 +87,8 @@ Products:{
   DisableButton: { role: "link" as const, name: "Disable" } as RoleLocator,
   DeletePopup:{
     Close:".modal-close-button",
-    Cancel:{ role: "button" as const, name: "Cancel" } as RoleLocator,
-    Delete:{ role: "button" as const, name: "Delete" } as RoleLocator
+    Cancel:".button.primary",
+    Delete:".button.critical"
   
   }
 },

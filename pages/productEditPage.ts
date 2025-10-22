@@ -56,7 +56,8 @@ await helper.ProductSaveToaster(this.page);
 }
 //Selecting Updated Product
 async SelectingUpdatedProductCheckbox(ProductName:string):Promise<void>{
-  await helper.selectingProductCheckbox(this.page,ProductName);
+  //await helper.selectingProductCheckbox(this.page,ProductName);
+  await helper.selectingSingleProductCheckbox(this.page,ProductName);
 }
 //Deleting Updated Product
 async DeleteProduct():Promise<void>{
